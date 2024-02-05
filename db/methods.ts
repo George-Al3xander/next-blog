@@ -1,4 +1,4 @@
-import { desc, eq } from "drizzle-orm"
+import { count, desc, eq, sql } from "drizzle-orm"
 import { db } from "./index"
 import { posts, users } from "./schema"
 
@@ -8,7 +8,7 @@ export const getPosts = async () => {
 }
 
 
-export async function getPostsPagination  (page:number= 1, limit:number= 2)  {    
+export async function getPostsPagination  (page:number= 1, limit:number= 5)  {    
     const skip = (page - 1) * limit
     try {
         const dbPosts = await db.select()
@@ -31,6 +31,15 @@ export type NewPost = Required<typeof posts.$inferInsert>
 
 export const insertPost = async (post: NewPost) => {
     return db.insert(posts).values(post).returning()
+}
+
+
+export const getPostsCount = async (userId?: number) => {
+    if(userId) {
+        return (await db.select({ value: count(posts.id) }).from(posts).where(eq(posts.authorId, userId)))[0].value;
+    } else {
+        return (await db.select({ value: count(posts.id) }).from(posts))[0].value;
+    }     
 }
 
 

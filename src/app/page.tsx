@@ -4,18 +4,18 @@
 import InfiniteScrollPosts from "@/components/posts/InfiniteScrollPosts";
 import { getPostsAction } from "../../db/actions";
 import PostPreview from "@/components/posts/PostPreview";
-import { getPosts } from "../../db/methods";
+import { getPosts, getPostsCount, getPostsPagination } from "../../db/methods";
 
 
 
 //export const revalidate = 86400
 export default async function  Home() {   
-  const posts = await getPosts()
+  const posts = await  getPostsAction();
+  const count = await getPostsCount()
+
   return (<section>    
-      <ul className="flex flex-col gap-[8rem]">
-          {posts.map((post) => {
-            return <PostPreview key={"post-preview-"+post.id} {...post}/>
-          })}
+      <ul className="flex flex-col gap-[8rem]">         
+          <InfiniteScrollPosts postsLength={count} initialPosts={posts}/>
       </ul>        
   </section>);
 }

@@ -1,10 +1,9 @@
 import { notFound } from "next/navigation"
-import { getPost, getPostAuthorInfo } from "../../../../db/methods"
+import { getPost} from "../../../../db/methods"
 import { compileFromMdx } from "@/lib/markdown/markdown-tools"
-import 'highlight.js/styles/github-dark.css'
 import moment from "moment"
-import Link from "next/link"
 import DisplayPostAuthor from "@/components/posts/GetPostAuthor"
+import 'highlight.js/styles/github-dark.css'
 
 
 
@@ -20,17 +19,17 @@ export default async function SinglePostPage ({params: {postId}}: {params: {post
     const {frontmatter, content} = await compileFromMdx(post[0].content!)
 
     return(<section  className="        
-    prose 
-    lg:prose-xl 
-    prose-slate 
-    prose-headings:text-white
-    prose-p:text-white
-    prose-ol:text-white
-    prose-ul:text-white
-    prose-a:text-white
-    prose-strong:text-white
-    prose-strong:font-extrabold  
-    mx-auto    
+        prose 
+        lg:prose-xl 
+        prose-slate 
+        prose-headings:text-white
+        prose-p:text-white
+        prose-ol:text-white
+        prose-ul:text-white
+        prose-a:text-white
+        prose-strong:text-white
+        prose-strong:font-extrabold  
+        mx-auto    
     " 
     key={"post-page-"+id}>
       <div className="flex flex-col !m-0 pb-14">

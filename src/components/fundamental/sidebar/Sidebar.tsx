@@ -9,8 +9,8 @@ import { DialogDemo } from "@/components/ui/Diaolog";
 
 const Sidebar = () => (<nav 
   className="
-  border-primary
-  bg-accent
+    border-primary
+    bg-accent
     z-20
     px-4 
     py-4 
@@ -34,18 +34,12 @@ const Sidebar = () => (<nav
     lg:border-0    
     lg:border-r-2 
     lg:mx-0   
-    "
+  "
     >
-      <SidebarHome />
-    
-      
+    <SidebarHome />   
     <SidebarAvatar />  
     <SidebarSearch />       
-    {/* <SidebarCreate /> */}
-   <DialogDemo />
-    
-
-    
+    <SidebarCreate />    
 </nav>)
 
 export default Sidebar

@@ -11,3 +11,7 @@
 body {
   background-color: var(--clr-accent);
 }
+
+.vertical-text {
+    writing-mode: vertical-rl;    
+}

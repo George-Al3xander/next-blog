@@ -9,7 +9,7 @@ const SidebarCreate = async () => {
     const {isAuthenticated} = getKindeServerSession()
     const isLogged  = await isAuthenticated()
 
-    return(<Button className="lg:mt-auto" disabled={!isLogged} Icon={IoAddCircleOutline} variant={"icon"}>create</Button>)
+    return(<Button className="lg:mt-auto mx-auto" disabled={!isLogged} Icon={IoAddCircleOutline} variant={"icon"}>create</Button>)
 }
 
 export default SidebarCreate

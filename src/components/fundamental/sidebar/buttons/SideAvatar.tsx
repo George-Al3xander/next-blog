@@ -9,18 +9,15 @@ const SidebarAvatar = async ({header}:{header?:  boolean}) => {
     const isLogged  = await isAuthenticated()
     const user = await getUser();  
     if(!isLogged) return  <>
-    <Button className="hidden md:block">
-        <LoginLink>Sign in</LoginLink>
-    </Button>
-    <Button className="hidden md:block">
-        <RegisterLink>Sign up</RegisterLink>
-    </Button>
-
-    <LoginLink>
-        <Button className="md:hidden" Icon={IoLogIn} variant={"icon"}>
-            
+        <Button className={`hidden ${!header ? "lg:block" : ""}`}>
+            <LoginLink>Sign in</LoginLink>
         </Button>
-    </LoginLink>
+        <Button className={`hidden ${!header ? "lg:block" : ""}`}>
+            <RegisterLink>Sign up</RegisterLink>
+        </Button>
+        <LoginLink className={`${header ? "lg:" : ""}hidden`}>
+            <Button  Icon={IoLogIn} variant={"icon"} />
+        </LoginLink>
     </>
 
     return(<div className={`lg:mx-auto ${header ? "lg:hidden" : "hidden lg:block" }`}>

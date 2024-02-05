@@ -1,20 +1,18 @@
 "use client"
 import {useInView} from "react-intersection-observer"
-import { useEffect, useState } from "react"
+import {  useEffect, useState } from "react"
 import { NewPost } from "../../../db/methods"
-
+import {PulseLoader} from "react-spinners"
 import PostPreview from "./PostPreview";
-import Button from "../reusable/Button";
 import { getPostsAction } from "../../../db/actions";
 
 
-export default function InfiniteScrollPosts ({initialPosts}: {initialPosts: NewPost[]}) {
+export default function InfiniteScrollPosts ({initialPosts}: {initialPosts: NewPost[], postsLength: number}) {
   const [posts, setPosts] = useState<NewPost[]>(initialPosts);
   const [page,setPage] = useState<number>(1)
-  //const [ref, inView] = useInView();
+  const [ref, inView] = useInView();
 
-  const  loadMorePosts = async () => {  
-    alert("Help")
+  const  loadMorePosts = async () => {         
     const next = page + 1;    
     const newPosts = await getPostsAction(next)
     if(newPosts.length) {
@@ -26,16 +24,24 @@ export default function InfiniteScrollPosts ({initialPosts}: {initialPosts: NewP
     } 
   }
 
-  // useEffect(() => {
-  //   if(inView) {
-  //     loadMorePosts()
-  //   }
-  // },[inView])
 
-  return(<div>
+  useEffect(() => {
+    if(inView) {
+      loadMorePosts()
+    }
+  },[inView])
+
+  return(<>
     {posts.map((post) => {
         return <PostPreview key={"post-preview-"+post.id} {...post}/>
     })}
-    <Button onClick={loadMorePosts}>Load more</Button>    
-  </div>)
+
+    {posts.length < 6 ?   
+      <div className="flex justify-center"  ref={ref}>
+        <PulseLoader color="var(--clr-primary)"/>
+      </div> 
+      :
+      null      
+    }
+  </>)
 }
