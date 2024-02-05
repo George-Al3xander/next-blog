@@ -1,0 +1,1 @@
+export type TClassName = React.ComponentProps<'div'>['className']

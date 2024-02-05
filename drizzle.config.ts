@@ -1,4 +1,4 @@
-import "./db/config"
+import "./lib/db/config"
 import { defineConfig} from 'drizzle-kit';
 
 

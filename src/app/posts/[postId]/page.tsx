@@ -1,6 +1,6 @@
 import { notFound } from "next/navigation"
-import { getPost} from "../../../../db/methods"
-import { compileFromMdx } from "@/lib/markdown/markdown-tools"
+import { getPost} from "../../../../lib/db/methods"
+import { compileFromMdx } from "../../../../lib/markdown/markdown-tools"
 import moment from "moment"
 import DisplayPostAuthor from "@/components/posts/GetPostAuthor"
 import 'highlight.js/styles/github-dark.css'

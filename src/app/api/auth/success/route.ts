@@ -2,9 +2,9 @@
 import {getKindeServerSession} from "@kinde-oss/kinde-auth-nextjs/server";
 import {eq} from "drizzle-orm";
 import {NextResponse} from "next/server";
-import { db } from "../../../../../db";
-import { users } from "../../../../../db/schema";
-import { insertUser } from "../../../../../db/methods";
+import { db } from "../../../../../lib/db";
+import { users } from "../../../../../lib/db/schema";
+import { insertUser } from "../../../../../lib/db/methods";
 
 
 

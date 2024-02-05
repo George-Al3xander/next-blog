@@ -1,7 +1,9 @@
 import Link from "next/link"
-import { NewPost, getPostAuthorInfo } from "../../../db/methods"
+import { NewPost, getPostAuthorInfo } from "../../../lib/db/methods"
 import moment from "moment"
-import DisplayPostAuthor from "./GetPostAuthor"
+import DisplayPostAuthor from "./get-post-author"
+import { markdownToPlainText } from "../../../lib/markdown/markdown-tools"
+
 
 
 
@@ -17,7 +19,7 @@ const PostPreview =  ({title,id,createdAt,authorId,content}: NewPost) =>
 
         <div className="flex items-start flex-col gap-4">
             <Link href={`/posts/${id}`}><h2 key={"date"} className="text-3xl font-bold text-primary hover:underline">{title}</h2></Link>
-            <p className="flex flex-wrap"><span className="line-clamp-3">{content}</span><Link href={`/posts/${id}`}><span className="text-primary">...read more</span></Link></p>
+            <p className="flex flex-wrap"><span className="line-clamp-3">{markdownToPlainText(content!)}</span><Link href={`/posts/${id}`}><span className="text-primary">...read more</span></Link></p>
         </div>
     </section>)
 

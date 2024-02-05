@@ -1,10 +1,6 @@
-// import InfiniteScrollPosts from "@/components/posts/InfiniteScrollPosts";
-// import { getPostsPagination } from "../../db/pagination";
-
-import InfiniteScrollPosts from "@/components/posts/InfiniteScrollPosts";
-import { getPostsAction } from "../../db/actions";
-import PostPreview from "@/components/posts/PostPreview";
-import { getPosts, getPostsCount, getPostsPagination } from "../../db/methods";
+import { getPostsAction } from "../../lib/db/actions";
+import { getPostsCount} from "../../lib/db/methods";
+import InfiniteScrollPosts from "@/components/posts/infinite-scroll-posts";
 
 
 

@@ -1,8 +1,9 @@
 "use client"
 import Link from "next/link";
-import { getPostAuthorInfo } from "../../../db/methods";
+import { getPostAuthorInfo } from "../../../lib/db/methods";
 import {  useEffect, useState } from "react";
-type Props = {authorId: number, className?: React.ComponentProps<'div'>['className']}
+import { TClassName } from "@/types";
+type Props = {authorId: number, className?: TClassName}
 
 export default function DisplayPostAuthor ({authorId, className}: Props) {
     const [author, setAuthor] = useState<{name: string, id: number | string} | undefined>()

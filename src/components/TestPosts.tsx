@@ -1,5 +1,5 @@
 import { revalidatePath } from "next/cache"
-import { NewPost, getPosts, insertPost } from "../../db/methods"
+import { NewPost, getPosts, insertPost } from "../../lib/db/methods"
 import Button from "./Button"
 
 

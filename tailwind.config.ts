@@ -9,7 +9,7 @@ const config: Config = {
   theme: {
     extend: {      
       width: {
-        "responsive": "min(90%,40rem)"
+        "responsive": "min(90%,60rem)"
       },
       colors: {
           "primary": "var(--clr-primary)",

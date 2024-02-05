@@ -7,10 +7,11 @@
     "build": "next build",
     "start": "next start",
     "lint": "next lint",
-    "migrateDb": "pnpm dlx drizzle-kit generate:pg && pnpm dlx tsx db/scripts/migrate.ts",
+    "migrateDb": "pnpm dlx drizzle-kit generate:pg && pnpm dlx tsx lib/db/scripts/migrate.ts",
     "postBuild": "next-sitemap"
   },
   "dependencies": {
+    "@hookform/resolvers": "^3.3.4",
     "@kinde-oss/kinde-auth-nextjs": "^2.1.4",
     "@neondatabase/serverless": "^0.7.2",
     "@radix-ui/react-dialog": "^1.0.5",
@@ -31,6 +32,7 @@
     "next-sitemap": "^4.2.3",
     "react": "^18",
     "react-dom": "^18",
+    "react-hook-form": "^7.50.0",
     "react-icons": "^5.0.1",
     "react-infinite-scroll-component": "^6.1.0",
     "react-intersection-observer": "^9.5.4",
@@ -44,7 +46,8 @@
     "remark-html": "^16.0.1",
     "sharp": "^0.33.2",
     "tailwind-merge": "^2.2.1",
-    "tailwindcss-animate": "^1.0.7"
+    "tailwindcss-animate": "^1.0.7",
+    "zod": "^3.22.4"
   },
   "devDependencies": {
     "@tailwindcss/aspect-ratio": "^0.4.2",

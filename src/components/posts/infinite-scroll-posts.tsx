@@ -1,10 +1,10 @@
 "use client"
 import {useInView} from "react-intersection-observer"
 import {  useEffect, useState } from "react"
-import { NewPost } from "../../../db/methods"
+import { NewPost } from "../../../lib/db/methods"
 import {PulseLoader} from "react-spinners"
 import PostPreview from "./PostPreview";
-import { getPostsAction } from "../../../db/actions";
+import { getPostsAction } from "../../../lib/db/actions";
 
 
 export default function InfiniteScrollPosts ({initialPosts}: {initialPosts: NewPost[], postsLength: number}) {

@@ -15,9 +15,7 @@ export async function getPostsPagination  (page:number= 1, limit:number= 5)  {
 	    .from(posts)
 	    .orderBy(desc(posts.createdAt))
 	    .limit(limit)
-	    .offset(skip)
-
-        console.log("Good")
+	    .offset(skip)       
 
         return JSON.parse(JSON.stringify(dbPosts))
     } catch (error) {
@@ -27,7 +25,7 @@ export async function getPostsPagination  (page:number= 1, limit:number= 5)  {
     
 } 
 
-export type NewPost = Required<typeof posts.$inferInsert>
+export type NewPost = Omit<Required<typeof posts.$inferInsert>, "createdAt" | "updatedAt" | "id"> & {createdAt?: string, updatedAt?: string, id?: number}
 
 export const insertPost = async (post: NewPost) => {
     return db.insert(posts).values(post).returning()
@@ -43,9 +41,19 @@ export const getPostsCount = async (userId?: number) => {
 }
 
 
-export const getUsers = async () => {
+export type NewUser =  Required<typeof users.$inferInsert>
+
+export const getUsers = async () : Promise<NewUser[]> => {
     const selectResult = await db.select().from(users)
     return selectResult
+}
+
+export const getUser = async ({kindeId, email}:{kindeId?: string, email?: string}) : Promise<NewUser[]> => {
+    if(kindeId) {
+        return await db.select().from(users).where(eq(users.kindeId, kindeId))
+    } 
+   
+    return await db.select().from(users).where(eq(users.email, email!)) 
 }
 
 export const getPostAuthorInfo = async (id: number) => {
@@ -59,7 +67,6 @@ export const getPost =async (id: number) => {
     return post 
 }
 
-export type NewUser = typeof users.$inferInsert
 
 export const insertUser = async (User: NewUser) => {
     return db.insert(users).values(User).returning()
