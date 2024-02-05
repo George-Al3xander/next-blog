@@ -7,7 +7,7 @@
     "build": "next build",
     "start": "next start",
     "lint": "next lint",
-    "migrateDb": "npx drizzle-kit generate:pg && npx tsx db/scripts/migrate.ts",
+    "migrateDb": "pnpm dlx drizzle-kit generate:pg && pnpm dlx tsx db/scripts/migrate.ts",
     "postBuild": "next-sitemap"
   },
   "dependencies": {
