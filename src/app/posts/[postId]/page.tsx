@@ -2,7 +2,7 @@ import { notFound } from "next/navigation"
 import { getPost} from "../../../../lib/db/methods"
 import moment from "moment"
 import DisplayPostAuthor from "@/components/posts/get-post-author"
-import { isCurrUserAuthor } from "../../../../lib/db/actions"
+import { isCurrUserAuthor } from "../../../../lib/actions"
 import DisplayMarkdown from "@/components/display-markdown"
 
 

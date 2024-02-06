@@ -2,16 +2,39 @@
 import {useForm} from "react-hook-form"
 import {zodResolver} from "@hookform/resolvers/zod"
 import { PostCreationSchema, TPostCreationSchema } from "../../../lib/zod/schema"
-import { NewPost, getUser, insertPost } from "../../../lib/db/methods"
 import Button from "@/components/reusable/Button"
 import Input from "@/components/reusable/Input"
-import { useKindeBrowserClient } from "@kinde-oss/kinde-auth-nextjs"
+import toast from 'react-hot-toast';
+import { TagsInput } from "react-tag-input-component";
+import { useEffect, useState } from "react"
+
+const Example = () => {
+  const [selected, setSelected] = useState<string[]>([]);
+  useEffect(() => {
+    if(selected && selected.length > 3) {      
+        setSelected(() => [selected[0],selected[1], selected[selected.length-1]])
+    }
+  },[selected])
+  return (
+    <div className="bg-accent">           
+      <TagsInput
+        value={selected}
+        onChange={setSelected}
+        name="fruits"
+        classNames={{input: "!bg-accent tags-enter-input"}}
+        placeHolder="Enter tag and press enter...(optional)"
+      />   
+    </div>
+  );
+};
 
 
 
-const CreatePostForm = () => {
-    const {isLoading, user} = useKindeBrowserClient()
-    const onSubmit = async (data: {title: string, content: string}) => {
+export type FieldVal = {title: string, content: string}
+
+const CreatePostForm = ({onSuccess,intialData}:{onSuccess: (data: FieldVal)  => Promise<{success: boolean, error?: string}>, intialData?: FieldVal}) => {
+    
+    const onSubmit = async (data: FieldVal) => {
         const res = await fetch("/api/createpost", {
             method: "POST",
             body: JSON.stringify({
@@ -44,16 +67,17 @@ const CreatePostForm = () => {
             }
             return 
         }
-        try {
-            const currUser = (await getUser({kindeId: user!.id}))[0]
-            await insertPost({authorId: +currUser.id, title: "", content: ""})
-        } catch (error) {
-            
+        
+        const submitRes = await onSuccess(data)
+        if(!submitRes.success) {
+            toast.error(submitRes.error ?? "Something went wrong");
+        } else {
+            toast.success('Post created');            
+            reset();                   
         }
-        reset()        
+        
     }
-    
-    
+      
     const {
         register, 
         handleSubmit, 
@@ -63,19 +87,16 @@ const CreatePostForm = () => {
     } = useForm<TPostCreationSchema>({
         resolver: zodResolver(PostCreationSchema)
     })
-
-
-    if(isLoading) return <div>Loading...</div>
-    if(!user) return <div>No user</div>
-
+  
     return(<section>
         <form onSubmit={handleSubmit(onSubmit)} className="flex flex-col gap-4">
-            <Input placeholder="Title"  {...register("title")}  type={"text"} />
-            {/* <input {...register("title")} placeholder="Title"  type="text" /> */}
-            {errors.title && <p className="text-red-600">{errors.title.message}</p>}
-            {/* <textarea {...register("content")} placeholder="Tell us something"  cols={30} rows={10}></textarea> */}
-            <Input placeholder="Tell us something" cols={20} rows={10} {...register("content")} type={"textarea"} />
+            
+            <Input defaultValue={intialData ? intialData.title : ""} placeholder="Title"  {...register("title")}  type={"text"} />            
+            {errors.title && <p className="text-red-600">{errors.title.message}</p>}            
+            <Example />
+            <Input defaultValue={intialData ? intialData.content : ""} placeholder="Tell us something" cols={20} rows={10} {...register("content")} type={"textarea"} />
             {errors.content && <p className="text-red-600">{errors.content.message}</p>}
+            
             <Button disabled={isSubmitting}>Creat{isSubmitting ? "ing..." : "e"}</Button>
         </form>
     </section>)

@@ -1,6 +1,7 @@
 import { count, desc, eq, sql } from "drizzle-orm"
 import { db } from "./index"
 import { posts, users } from "./schema"
+import { getKindeServerSession } from "@kinde-oss/kinde-auth-nextjs/server"
 
 export const getPosts = async () => {
     const selectResult = await db.select().from(posts).orderBy(desc(posts.createdAt))
@@ -25,9 +26,11 @@ export async function getPostsPagination  (page:number= 1, limit:number= 5)  {
     
 } 
 
-export type NewPost = Omit<Required<typeof posts.$inferInsert>, "createdAt" | "updatedAt" | "id"> & {createdAt?: string, updatedAt?: string, id?: number}
+export type NewPost = Required<typeof posts.$inferInsert>
 
-export const insertPost = async (post: NewPost) => {
+//Omit<, "createdAt" | "updatedAt" | "id"> & {createdAt?: string, updatedAt?: string, id?: number}
+
+export const insertPost = async (post: Omit<NewPost, "createdAt" | "updatedAt" | "id"> ) => {
     return db.insert(posts).values(post).returning()
 }
 
@@ -66,6 +69,7 @@ export const getPost =async (id: number) => {
     const post = await db.select().from(posts).where(eq(posts.id, id));
     return post 
 }
+
 
 
 export const insertUser = async (User: NewUser) => {

@@ -12,6 +12,22 @@ body {
   background-color: var(--clr-accent);
 }
 
-.vertical-text {
+.rti--container {
+  --rti-bg: var(--clr-accent) !important;
+  --rti-border: var(--clr-primary) !important;
+  --rti-main: white !important;  
+  --rti-tag: var(--clr-primary) !important;
+  --rti-tag-remove: red;
+}
+
+@media (min-width: 1024px) {
+  .vertical-text {
     writing-mode: vertical-rl;    
+  }
+}
+
+@media (max-width: 1024px) {  
+  .tags-enter-input {
+    width: 100% !important;
+  }
 }

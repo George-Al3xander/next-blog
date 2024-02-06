@@ -1,4 +1,4 @@
-import { getPostsAction } from "../../lib/db/actions";
+import { getPostsAction } from "../../lib/actions";
 import { getPostsCount} from "../../lib/db/methods";
 import InfiniteScrollPosts from "@/components/posts/infinite-scroll-posts";
 

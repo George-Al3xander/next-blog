@@ -4,7 +4,7 @@ import {  useEffect, useState } from "react"
 import { NewPost } from "../../../lib/db/methods"
 import {PulseLoader} from "react-spinners"
 import PostPreview from "./PostPreview";
-import { getPostsAction } from "../../../lib/db/actions";
+import { getPostsAction } from "../../../lib/actions";
 
 
 export default function InfiniteScrollPosts ({initialPosts}: {initialPosts: NewPost[], postsLength: number}) {

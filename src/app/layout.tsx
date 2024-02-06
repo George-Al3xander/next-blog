@@ -3,8 +3,7 @@ import { Nunito_Sans} from "next/font/google";
 import Sidebar from "@/components/fundamental/sidebar/Sidebar";
 import Header from "@/components/fundamental/Header";
 import "./globals.css";
-import AnimationWrapper from "@/components/fundamental/sidebar/AnimationWrapper";
-
+import{ Toaster } from 'react-hot-toast';
 
 const inter = Nunito_Sans({ subsets: ["latin"] });
 
@@ -25,12 +24,11 @@ export default function RootLayout({
                 <Sidebar />
           {/* </AnimationWrapper> */}
           <Header />
-          <main className="lg:ml-[12vw]  pt-[6rem] mb-[10rem] text-white ">
-          <span className="block w-responsive mx-auto">
-             
-              {children}
-             
-          </span> 
+          <main className="lg:ml-[12vw]  pt-[6rem] mb-[10rem]  text-white ">
+                <span className="block w-responsive mx-auto">             
+                    {children}
+                  <Toaster />
+                </span> 
             </main>
         </body>
     </html>
