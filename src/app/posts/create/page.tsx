@@ -1,4 +1,4 @@
-import CreatePostForm, { FieldVal } from "@/components/posts/create-post-form";
+import CreatePostForm, { FieldVal } from "@/components/posts/create post form/create-post-form";
 import { getKindeServerSession } from "@kinde-oss/kinde-auth-nextjs/server";
 import { redirect } from "next/navigation"
 import { createPost } from "../../../../lib/actions";

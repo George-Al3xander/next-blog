@@ -41,7 +41,7 @@ const Input : FC<InputProps> = forwardRef<HTMLInputElement | HTMLTextAreaElement
     {className,type ,size,cols,rows,variant,children, ...props}, ref) => {
         if(type == "textarea") return <textarea cols={cols} rows={rows} ref={ref as any} className={cn(inputVarians({variant,size,className}))}  {...props} />
 
-        return (<input ref={ref as any} className={cn(inputVarians({variant,size,className}))}  {...props} />)
+        return (<input  ref={ref as any} className={cn(inputVarians({variant,size,className}))}  {...props} />)
     }
 )
 

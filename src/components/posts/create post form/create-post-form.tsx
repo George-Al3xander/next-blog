@@ -1,32 +1,16 @@
 "use client"
 import {useForm} from "react-hook-form"
 import {zodResolver} from "@hookform/resolvers/zod"
-import { PostCreationSchema, TPostCreationSchema } from "../../../lib/zod/schema"
+import { PostCreationSchema, TPostCreationSchema } from "../../../../lib/zod/schema"
 import Button from "@/components/reusable/Button"
 import Input from "@/components/reusable/Input"
 import toast from 'react-hot-toast';
-import { TagsInput } from "react-tag-input-component";
-import { useEffect, useState } from "react"
 
-const Example = () => {
-  const [selected, setSelected] = useState<string[]>([]);
-  useEffect(() => {
-    if(selected && selected.length > 3) {      
-        setSelected(() => [selected[0],selected[1], selected[selected.length-1]])
-    }
-  },[selected])
-  return (
-    <div className="bg-accent">           
-      <TagsInput
-        value={selected}
-        onChange={setSelected}
-        name="fruits"
-        classNames={{input: "!bg-accent tags-enter-input"}}
-        placeHolder="Enter tag and press enter...(optional)"
-      />   
-    </div>
-  );
-};
+import { Tooltip } from 'react-tooltip'
+import 'react-tooltip/dist/react-tooltip.css'
+import TagsInput from "./tags-input"
+import ContentTooltip from "./tooltips"
+
 
 
 
@@ -89,12 +73,20 @@ const CreatePostForm = ({onSuccess,intialData}:{onSuccess: (data: FieldVal)  => 
     })
   
     return(<section>
-        <form onSubmit={handleSubmit(onSubmit)} className="flex flex-col gap-4">
+        <TagsInput />
+        <form autoComplete="off" onSubmit={handleSubmit(onSubmit)} className="flex flex-col gap-4">
+     
+            <div className="flex">
+               <span id="tooltip-info"> hover</span>
+            </div>
+            <Tooltip clickable className="!bg-accent border-2 border-primary z-30" place="bottom"  anchorSelect="#tooltip-info">
+                <ContentTooltip />
+            </Tooltip>
+            
             
             <Input defaultValue={intialData ? intialData.title : ""} placeholder="Title"  {...register("title")}  type={"text"} />            
             {errors.title && <p className="text-red-600">{errors.title.message}</p>}            
-            <Example />
-            <Input defaultValue={intialData ? intialData.content : ""} placeholder="Tell us something" cols={20} rows={10} {...register("content")} type={"textarea"} />
+            <Input defaultValue={intialData ? intialData.content : ""} placeholder="Enter raw markdown, hover on info icon to see supported elements" cols={20} rows={10} {...register("content")} type={"textarea"} />
             {errors.content && <p className="text-red-600">{errors.content.message}</p>}
             
             <Button disabled={isSubmitting}>Creat{isSubmitting ? "ing..." : "e"}</Button>

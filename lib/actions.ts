@@ -1,7 +1,7 @@
 "use server"
 import { getKindeServerSession } from "@kinde-oss/kinde-auth-nextjs/server"
 import { getPostsPagination, getUser, insertPost } from "./db/methods"
-import { FieldVal } from "@/components/posts/create-post-form"
+import { FieldVal } from "@/components/posts/create post form/create-post-form"
 
 export async function getPostsAction  (page:number= 1)  {  
 	
