@@ -24,15 +24,15 @@ const ContentTooltip = () => {
     
 
 
-    return(<table>
-        <thead className="font-bold border-b-2 border-primary">
+    return(<table className="bg-accent text-white border-0 text-base border-t-primary border-t-2">        
+        <thead className="font-bold border-b-2 border-primary text-center">
             <th>Element</th>
             <th>Syntax</th>
         </thead>
         <tbody>
             {markdownElements.map((el) => {
                 const list = el.syntax.split("\n")
-                return <tr className="text-center border-b-2 border-primary" key={el.element}>
+                return <tr className="text-center border-b-2 border-primary max-w-[100%]" key={el.element}>
                     <td className="border-r-2 border-primary">{el.element}</td>
                     <td>{list.length == 1 ? 
                     el.syntax

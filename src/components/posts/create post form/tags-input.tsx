@@ -1,29 +1,39 @@
 "use client"
 import { TagsInput as Tag } from "react-tag-input-component";
-import { useEffect, useState } from "react"
+import {MutableRefObject, useState } from "react"
 import toast from 'react-hot-toast';
 
 
 
-const TagsInput = () => {
-    const [selected, setSelected] = useState<string[]>([]);
-    useEffect(() => {
-      if(selected && selected.length > 3) {      
-          setSelected((prev) => prev.slice(0,3))
-          toast.error("You can't have more than 3 tags"); 
-      }
-    },[selected])
-  
-   
+type Props ={ 
+    tagsLimit?: number,
+    initialTags?: string[],
+    tagsRef: MutableRefObject<string[]>
+}
+
+
+const TagsInput = ({tagsLimit = 5, initialTags = [],tagsRef}: Props) => {
+    const [selected, setSelected] = useState<string[]>(initialTags);
+    const handleChange = (tags: string[]) => {
+      tagsRef.current = tags
+      setSelected(tags)
+    }
     return (
-      <div className="bg-accent">           
-        <Tag
+      <div className="bg-accent" onClick={(e) => e.preventDefault()}>         
+        <Tag          
+          beforeAddValidate={(newTag, prevTags) => {
+            if([newTag, ...prevTags].length > tagsLimit) {
+              toast.error(`You can't have more than ${tagsLimit} tag${tagsLimit == 1 ? "": "s"}`); 
+              return false
+            }
+            return true
+          }}
           value={selected}
-          onChange={setSelected}
+          onChange={handleChange}
           name="tags"
-          classNames={{input: "!bg-accent tags-enter-input"}}
-          placeHolder="Enter tag and press enter...(optional)"
-        />   
+          classNames={{input: "!bg-accent tags-enter-input", tag: "!text-accent"}}
+          placeHolder="Enter tag and press enter"
+        />                 
       </div>
     );
   };

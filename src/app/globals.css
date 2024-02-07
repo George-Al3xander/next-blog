@@ -20,6 +20,11 @@ body {
   --rti-tag-remove: red;
 }
 
+.rc-tooltip-inner {
+  background-color: var(--clr-accent) !important;
+  border-color: var(--clr-primary) !important;
+}
+
 @media (min-width: 1024px) {
   .vertical-text {
     writing-mode: vertical-rl;    
