@@ -19,7 +19,7 @@ export const popularityEnum = pgEnum('popularity', ['unknown', 'known', 'popular
 // //   popularity: popularityEnum('popularity'),
 // // });
 
-
+//first users register date - 2024-01-01T06:37:23+0200
 export const users = pgTable("users",{
   id: serial('id').primaryKey(),
   kindeId: varchar('kindeId', { length: 256 }).unique(),
@@ -35,4 +35,5 @@ export const posts = pgTable("posts",{
     createdAt: timestamp("createdAt").defaultNow().notNull(),
     updatedAt: date("updatedAt"),
     authorId: integer('authorId').references(() => users.id).notNull(),  
+    //tags: varchar('tags', { length: 256 }),
   })

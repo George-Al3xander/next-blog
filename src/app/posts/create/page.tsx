@@ -10,7 +10,7 @@ const PostCreatePage = async () => {
     const {isAuthenticated, getUser} = await getKindeServerSession()
     const isLogged  = await isAuthenticated()
     if(!isLogged) {
-        redirect("/")
+        //redirect("/")
     }
 
 
